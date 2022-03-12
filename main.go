@@ -27,10 +27,10 @@ func main() {
 	// training
 	router.HandleFunc("/training", api.HandleGetTraining).Methods("GET")
 
-	// topics
+	// topic
 	router.HandleFunc("/topics/{id}", api.HandleGetTopic).Methods("GET")
 
-	// tasks
+	// task
 	// TODO tasks should get tasks - fix REST API
 	// TODO find proper REST method for executes
 	router.HandleFunc("/tasks/{id}", api.HandleGetTask).Methods("GET")
@@ -55,5 +55,3 @@ func handleLiveness(w http.ResponseWriter, r *http.Request) {
 func handleReadiness(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
-
-// TODO firefox issue

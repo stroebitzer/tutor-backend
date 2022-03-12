@@ -23,7 +23,6 @@ func HandleGetTask(w http.ResponseWriter, r *http.Request) {
 	}
 
 	json, err := json.Marshal(task)
-	// TODO create new DTO, only stuff for frontend
 	if err != nil {
 		log.Errorf("cannot marshal task on directory %v, error: %v", directory, err)
 		w.WriteHeader(http.StatusInternalServerError)
@@ -62,7 +61,6 @@ func HandleExecuteTask(w http.ResponseWriter, r *http.Request) {
 	executor.ExecuteTask(task)
 
 	json, err := json.Marshal(task)
-	// TODO create new DTO, only stuff for frontend
 	if err != nil {
 		log.Errorf("cannot marshal task on directory %v, error: %v", directory, err)
 		w.WriteHeader(http.StatusInternalServerError)
@@ -96,7 +94,6 @@ func HandleExecuteTaskCheck(w http.ResponseWriter, r *http.Request) {
 	executor.ExecuteCheck(check)
 
 	json, err := json.Marshal(check)
-	// TODO create new DTO, only stuff for frontend
 	if check == nil {
 		log.Errorf("cannot marshal check %v on directory %v, error: %v", check, directory, err)
 		w.WriteHeader(http.StatusInternalServerError)

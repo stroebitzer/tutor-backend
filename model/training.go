@@ -4,8 +4,6 @@ import (
 	"fmt"
 )
 
-// TODO mandatory fields
-
 type Training struct {
 	Name   string   `yaml:"name" json:"name"`
 	Topics []*Topic `yaml:"topics" json:"topics"`

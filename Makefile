@@ -13,9 +13,11 @@ build: test
 
 .PHONY: run
 run: build
+# TODO
 # TRAINING_DIR=/home/hubert/git/tutor-training TRAINING_FILE=.training.yaml ./${APPLICATION_NAME}
 	./${APPLICATION_NAME}
 
+# TODO
 # .PHONY: release
 # release: build
 # 	git tag ${BUILD_VERSION}

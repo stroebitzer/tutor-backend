@@ -1,7 +1,5 @@
 package model
 
-// TODO mandatory fields
-
 type Topic struct {
 	ID        string  `yaml:"id" json:"id"`
 	Name      string  `yaml:"name" json:"name"`

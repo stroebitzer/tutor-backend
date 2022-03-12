@@ -29,7 +29,6 @@ func HandleGetTopic(w http.ResponseWriter, r *http.Request) {
 	}
 
 	json, err := json.Marshal(topic)
-	// TODO create new DTO, only stuff for frontend
 	if err != nil {
 		log.Errorf("cannot marshal topic with id %v, error: %v", id, err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)

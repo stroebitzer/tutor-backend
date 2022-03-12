@@ -18,7 +18,6 @@ func ReadTraining(trainingDir string, trainingFile string) (*model.Training, err
 		return nil, fmt.Errorf("cannot read training from path %v, error: %v", absPath, err)
 	}
 	// TODO has to use defer
-	// TODO static factory
 	training := new(model.Training)
 	err = yaml.Unmarshal(yamlFile, training)
 	if err != nil {

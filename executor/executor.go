@@ -53,7 +53,7 @@ func compare(result string, operator string, expectation string) (string, error)
 			log.Infof("Executor SUCCESS")
 			return "SUCCESS", nil
 		}
-		// Really do this via erros => maybe some execution context
+		// TODO Really do this via erros => maybe some execution context
 		log.Infof("Executor FAILURE")
 		return "FAILURE", errors.New("Result does not match expectation: " + result + " != " + expectation)
 	}

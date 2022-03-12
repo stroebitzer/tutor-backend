@@ -1,7 +1,5 @@
 package model
 
-// TODO mandatory fields
-
 type Task struct {
 	Directory string   `yaml:"directory" json:"directory"`
 	Name      string   `yaml:"name" json:"name"`
