@@ -1,0 +1,7 @@
+name: Test
+topics:
+  - id: test
+    name: Test
+    slidesUrl: https://test
+    tasks:
+      - directory: task

@@ -1,0 +1,9 @@
+name: Test
+checks:
+  - id: test
+    name: Test
+    command: echo
+    args: "true"
+    operator: EQUAL
+    expectation: "true"
+    hint: Test
