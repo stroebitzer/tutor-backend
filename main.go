@@ -11,6 +11,13 @@ import (
 
 func main() {
 
+	log.SetReportCaller(true)
+	formatter := &log.TextFormatter{
+		FullTimestamp:   true,
+		TimestampFormat: "2006-01-02 15:04:05",
+	}
+	log.SetFormatter(formatter)
+
 	router := mux.NewRouter()
 
 	// vital signs
@@ -31,10 +38,12 @@ func main() {
 	router.HandleFunc("/tasksexecute/{id}", api.HandleExecuteTask).Methods("GET")
 	router.HandleFunc("/taskscheckexecute/{taskId}/{checkId}", api.HandleExecuteTaskCheck).Methods("GET")
 
-	// TODO make this save
-	handler := cors.AllowAll().Handler(router)
-	// TODO automate host and port log line = > also do in campus
-	log.Infof("Starting on Port %v", 8080)
+	cors := cors.New(cors.Options{
+		AllowedOrigins:   []string{"http://localhost:4200"},
+		AllowCredentials: true,
+	})
+	handler := cors.Handler(router)
+	log.Info("Running campus-backend on port 8080")
 	http.ListenAndServe(":8080", handler)
 
 }

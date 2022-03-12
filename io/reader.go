@@ -1,6 +1,7 @@
 package io
 
 import (
+	"fmt"
 	"io/ioutil"
 
 	log "github.com/sirupsen/logrus"
@@ -9,64 +10,58 @@ import (
 	"github.com/stroebitzer/tutor-backend/model"
 )
 
-func ReadTraining(trainingDir string, trainingFile string) *model.Training {
+func ReadTraining(trainingDir string, trainingFile string) (*model.Training, error) {
 	absPath := trainingDir + "/" + trainingFile
 	log.Infof("Reading training from %v", absPath)
 	yamlFile, err := ioutil.ReadFile(absPath)
 	if err != nil {
-		log.Warnf("Cannot read training file %v", err)
-		return new(model.Training)
+		return nil, fmt.Errorf("cannot read training from path %v, error: %v", absPath, err)
 	}
 	// TODO has to use defer
 	// TODO static factory
 	training := new(model.Training)
 	err = yaml.Unmarshal(yamlFile, training)
 	if err != nil {
-		log.Warnf("Cannot unmarshal yaml %v", err)
-		return new(model.Training)
+		return nil, fmt.Errorf("cannot unmarshal training from path %v, error: %v", absPath, err)
 	}
 
-	// this kind of sucks
 	for _, topic := range training.Topics {
 		for i, task := range topic.Tasks {
-			fullTask := ReadTask(trainingDir, task.Directory)
-			topic.Tasks[i] = *fullTask
+			fullTask, err := ReadTask(trainingDir, task.Directory)
+			if err != nil {
+				return nil, fmt.Errorf("cannot read task  %v, error: %v", task, err)
+			}
+			topic.Tasks[i] = fullTask
 		}
 	}
 
-	return training
+	return training, nil
 }
 
-func ReadTask(trainingDir string, directory string) *model.Task {
-
-	// TODO add error in result
-
+func ReadTask(trainingDir string, directory string) (*model.Task, error) {
 	absPath := trainingDir + "/" + directory + "/.task.yaml"
 	log.Infof("Reading task from %v", absPath)
 	yamlFile, err := ioutil.ReadFile(absPath)
 	if err != nil {
-		log.Warnf("Cannot read task file %v", err)
-		return new(model.Task)
+		return nil, fmt.Errorf("cannot read task from path %v, error: %v", absPath, err)
 	}
 	// TODO has to use defer
 	task := new(model.Task)
 	task.Directory = directory
 	err = yaml.Unmarshal(yamlFile, task)
 	if err != nil {
-		log.Warnf("Cannot unmarshal yaml %v", err)
-		return new(model.Task)
+		return nil, fmt.Errorf("cannot unmarshal task from path %v, error: %v", absPath, err)
 	}
-	return task
+	return task, nil
 }
 
-func ReadTaskMarkdown(trainingDir string, directory string) []byte {
+func ReadTaskMarkdown(trainingDir string, directory string) ([]byte, error) {
 	absPath := trainingDir + "/" + directory + "/.task.md"
 	log.Infof("Reading markdown for task from %v", absPath)
 	markdownFile, err := ioutil.ReadFile(absPath)
 	if err != nil {
-		log.Warnf("Cannot read markdown task file %v", err)
-		return []byte("")
+		return nil, fmt.Errorf("cannot read task markdown from path %v, error: %v", absPath, err)
 	}
 	// TODO has to use defer
-	return markdownFile
+	return markdownFile, nil
 }

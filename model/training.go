@@ -1,35 +1,33 @@
 package model
 
-import log "github.com/sirupsen/logrus"
+import (
+	"fmt"
+)
 
 // TODO mandatory fields
 
 type Training struct {
-	Name   string  `yaml:"name" json:"name"`
-	Topics []Topic `yaml:"topics" json:"topics"`
+	Name   string   `yaml:"name" json:"name"`
+	Topics []*Topic `yaml:"topics" json:"topics"`
 }
 
-type Topic struct {
-	ID        string `yaml:"id" json:"id"`
-	Name      string `yaml:"name" json:"name"`
-	SlidesUrl string `yaml:"slidesUrl" json:"slidesUrl"`
-	VideoUrl  string `yaml:"videoUrl" json:"videoUrl"`
-	Tasks     []Task `yaml:"tasks" json:"tasks"`
+func NewTraining(name string, topics []*Topic) *Training {
+	training := new(Training)
+	training.Name = name
+	training.Topics = topics
+	return training
 }
 
-func FindTopic(training *Training, id string) Topic {
-	var foundTopic Topic
-	found := false
+func (training *Training) FindTopic(id string) (*Topic, error) {
+	var foundTopic *Topic
 	for _, topic := range training.Topics {
 		if topic.ID == id {
 			foundTopic = topic
-			found = true
 			break
 		}
 	}
-	// TODO this can be done better
-	if !found {
-		log.Warnf("Cannot find topic %v in training %v", id, training)
+	if foundTopic == nil {
+		return nil, fmt.Errorf("cannot find topic %v in training %v", id, training)
 	}
-	return foundTopic
+	return foundTopic, nil
 }

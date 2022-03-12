@@ -13,9 +13,10 @@ func TestReadTraining(t *testing.T) {
 	file := ".training.yaml"
 
 	// when
-	training := ReadTraining(dir, file)
+	training, err := ReadTraining(dir, file)
 
 	// then
+	assert.NoError(t, err)
 	assert.Equal(t, "Test", training.Name)
 	assert.Equal(t, 1, len(training.Topics))
 	assert.Equal(t, "Test", training.Topics[0].Name)
@@ -24,16 +25,17 @@ func TestReadTraining(t *testing.T) {
 	assert.Equal(t, 1, len(training.Topics[0].Tasks[0].Checks))
 }
 
-func TestReadTrainingDoesNotFail(t *testing.T) {
+func TestReadTrainingDoesFail(t *testing.T) {
 
 	// given
 	dir := "not_existing"
 	file := "not_existing"
 
 	// when
-	training := ReadTraining(dir, file)
+	training, err := ReadTraining(dir, file)
 
 	// then
+	assert.Error(t, err)
 	assert.Empty(t, training)
 }
 
@@ -44,23 +46,25 @@ func TestReadTask(t *testing.T) {
 	taskDir := "task"
 
 	// when
-	task := ReadTask(trainingDir, taskDir)
+	task, err := ReadTask(trainingDir, taskDir)
 
 	// then
+	assert.NoError(t, err)
 	assert.Equal(t, "Test", task.Name)
 	assert.Equal(t, 1, len(task.Checks))
 }
 
-func TestReadTaskDoesNotFail(t *testing.T) {
+func TestReadTaskDoesFail(t *testing.T) {
 
 	// given
 	trainingDir := "not_existing"
 	taskDir := "not_existing"
 
 	// when
-	task := ReadTask(trainingDir, taskDir)
+	task, err := ReadTask(trainingDir, taskDir)
 
 	// then
+	assert.Error(t, err)
 	assert.Empty(t, task)
 }
 
@@ -71,23 +75,25 @@ func TestReadTaskMarkdown(t *testing.T) {
 	taskDir := "task"
 
 	// when
-	md := ReadTaskMarkdown(trainingDir, taskDir)
+	md, err := ReadTaskMarkdown(trainingDir, taskDir)
 
 	// then
+	assert.NoError(t, err)
 	assert.NotEmpty(t, md)
 
 }
 
-func TestReadTaskMarkdownDoesNotFail(t *testing.T) {
+func TestReadTaskMarkdownDoesFail(t *testing.T) {
 
 	// given
 	trainingDir := "not_existing"
 	taskDir := "not_existing"
 
 	// when
-	md := ReadTaskMarkdown(trainingDir, taskDir)
+	md, err := ReadTaskMarkdown(trainingDir, taskDir)
 
 	// then
+	assert.Error(t, err)
 	assert.Empty(t, md)
 
 }
