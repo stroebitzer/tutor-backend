@@ -7,6 +7,7 @@ import (
 	"github.com/rs/cors"
 	log "github.com/sirupsen/logrus"
 	"github.com/stroebitzer/tutor-backend/api"
+	"github.com/stroebitzer/tutor-backend/app"
 )
 
 func main() {
@@ -37,7 +38,7 @@ func main() {
 	router.HandleFunc("/task/{taskId}/check/{checkId}", api.HandleExecuteTaskCheck).Methods(http.MethodPatch)
 
 	cors := cors.New(cors.Options{
-		AllowedOrigins:   []string{"http://localhost:4200"},
+		AllowedOrigins:   getAllowedOrigins(),
 		AllowedMethods:   []string{http.MethodGet, http.MethodPatch},
 		AllowCredentials: true,
 	})
@@ -45,6 +46,15 @@ func main() {
 	log.Info("Running campus-backend on port 8080")
 	http.ListenAndServe(":8080", handler)
 
+}
+
+func getAllowedOrigins() []string {
+	devOrigins := []string{"*"}
+	prodOrigins := []string{"https://*.academy." + app.Domain + ":443"}
+	if app.AppMode == "DEV" {
+		return devOrigins
+	}
+	return prodOrigins
 }
 
 func handleLiveness(w http.ResponseWriter, r *http.Request) {
