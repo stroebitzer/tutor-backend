@@ -1,7 +1,7 @@
 package executor
 
 import (
-	"errors"
+	"fmt"
 	"os/exec"
 	"strings"
 
@@ -40,25 +40,18 @@ func execute(command string, args string) string {
 
 func compare(result string, operator string, expectation string) (string, error) {
 
-	// TODO switch statement?
-	// TODO more operators?
-
 	log.Infof("Comparing result %v, operator %v, expectation %v", result, operator, expectation)
 
-	//TODO some kind of enum
 	if operator == "EQUAL" {
 		if result == expectation {
-			// TODO some kind of enum?
 			log.Infof("Executor SUCCESS")
 			return "SUCCESS", nil
 		}
-		// TODO Really do this via erros => maybe some execution context
 		log.Infof("Executor FAILURE")
-		return "FAILURE", errors.New("Result does not match expectation: " + result + " != " + expectation)
+		return "FAILURE", fmt.Errorf("result '%v' does not match expectation '%v'", result, expectation)
 	}
 
-	// TODO
-	log.Infof("you shall not get here")
-	return "FAILURE", errors.New("you shall not get here")
+	log.Errorf("Operator %v not implemented yet", operator)
+	return "FAILURE", fmt.Errorf("operator %v not implemented yet", operator)
 
 }
