@@ -53,11 +53,11 @@ func main() {
 
 func getAllowedOrigins() []string {
 	devOrigins := []string{"*"}
-	prodOrigins := []string{"https://*.academy." + app.Domain + ":443"}
+	// prodOrigins := []string{"https://*.academy." + app.Domain + ":443"}
 	if app.AppMode == "DEV" {
 		return devOrigins
 	}
-	return prodOrigins
+	return devOrigins
 }
 
 func handleLiveness(w http.ResponseWriter, r *http.Request) {
