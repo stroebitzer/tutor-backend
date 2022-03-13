@@ -21,25 +21,24 @@ func main() {
 	router := mux.NewRouter()
 
 	// vital signs
-	router.HandleFunc("/liveness", handleLiveness).Methods("GET")
-	router.HandleFunc("/readiness", handleReadiness).Methods("GET")
+	router.HandleFunc("/liveness", handleLiveness).Methods(http.MethodGet)
+	router.HandleFunc("/readiness", handleReadiness).Methods(http.MethodGet)
 
 	// training
-	router.HandleFunc("/training", api.HandleGetTraining).Methods("GET")
+	router.HandleFunc("/training", api.HandleGetTraining).Methods(http.MethodGet)
 
 	// topic
-	router.HandleFunc("/topics/{id}", api.HandleGetTopic).Methods("GET")
+	router.HandleFunc("/topic/{id}", api.HandleGetTopic).Methods(http.MethodGet)
 
 	// task
-	// TODO tasks should get tasks - fix REST API
-	// TODO find proper REST method for executes
-	router.HandleFunc("/tasks/{id}", api.HandleGetTask).Methods("GET")
-	router.HandleFunc("/tasksmd/{id}", api.HandleGetTaskMarkdown).Methods("GET")
-	router.HandleFunc("/tasksexecute/{id}", api.HandleExecuteTask).Methods("GET")
-	router.HandleFunc("/taskscheckexecute/{taskId}/{checkId}", api.HandleExecuteTaskCheck).Methods("GET")
+	router.HandleFunc("/task/{id}", api.HandleGetTask).Methods(http.MethodGet)
+	router.HandleFunc("/task/{id}/markdown", api.HandleGetTaskMarkdown).Methods(http.MethodGet)
+	router.HandleFunc("/task/{id}", api.HandleExecuteTask).Methods(http.MethodPatch)
+	router.HandleFunc("/task/{taskId}/check/{checkId}", api.HandleExecuteTaskCheck).Methods(http.MethodPatch)
 
 	cors := cors.New(cors.Options{
 		AllowedOrigins:   []string{"http://localhost:4200"},
+		AllowedMethods:   []string{http.MethodGet, http.MethodPatch},
 		AllowCredentials: true,
 	})
 	handler := cors.Handler(router)

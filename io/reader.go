@@ -17,7 +17,6 @@ func ReadTraining(trainingDir string, trainingFile string) (*model.Training, err
 	if err != nil {
 		return nil, fmt.Errorf("cannot read training from path %v, error: %v", absPath, err)
 	}
-	// TODO has to use defer
 	training := new(model.Training)
 	err = yaml.Unmarshal(yamlFile, training)
 	if err != nil {
@@ -44,7 +43,6 @@ func ReadTask(trainingDir string, directory string) (*model.Task, error) {
 	if err != nil {
 		return nil, fmt.Errorf("cannot read task from path %v, error: %v", absPath, err)
 	}
-	// TODO has to use defer
 	task := new(model.Task)
 	task.Directory = directory
 	err = yaml.Unmarshal(yamlFile, task)
@@ -61,6 +59,5 @@ func ReadTaskMarkdown(trainingDir string, directory string) ([]byte, error) {
 	if err != nil {
 		return nil, fmt.Errorf("cannot read task markdown from path %v, error: %v", absPath, err)
 	}
-	// TODO has to use defer
 	return markdownFile, nil
 }

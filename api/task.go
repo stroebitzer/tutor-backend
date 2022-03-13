@@ -57,7 +57,6 @@ func HandleExecuteTask(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// TODO error handling?
 	executor.ExecuteTask(task)
 
 	json, err := json.Marshal(task)
@@ -90,7 +89,6 @@ func HandleExecuteTaskCheck(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// TODO error handling
 	executor.ExecuteCheck(check)
 
 	json, err := json.Marshal(check)

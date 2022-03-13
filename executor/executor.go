@@ -31,7 +31,6 @@ func execute(command string, args string) string {
 	splittedArgs := strings.Split(args, " ")
 	result, err := exec.Command(command, splittedArgs...).Output()
 	if err != nil {
-		// TODO how to handle errors here?
 		log.Infof("Error on executing command %v with args %v, %v", command, args, err)
 	} else {
 		log.Infof("Successful execution of command %v with args %v", command, args)
