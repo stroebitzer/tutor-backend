@@ -39,7 +39,7 @@ func main() {
 	router.HandleFunc("/task/{taskId}/check/{checkId}", api.HandleExecuteTaskCheck).Methods(http.MethodPatch)
 
 	cors := cors.New(cors.Options{
-		AllowedOrigins:   getAllowedOrigins(),
+		AllowedOrigins:   []string{"*"},
 		AllowedMethods:   []string{http.MethodGet, http.MethodPatch},
 		AllowCredentials: true,
 	})
