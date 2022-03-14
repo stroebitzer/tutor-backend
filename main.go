@@ -18,6 +18,7 @@ func main() {
 		TimestampFormat: "2006-01-02 15:04:05",
 	}
 	log.SetFormatter(formatter)
+	log.Infof("Running in %v mode", app.AppMode)
 
 	router := mux.NewRouter()
 
@@ -38,7 +39,7 @@ func main() {
 	router.HandleFunc("/task/{taskId}/check/{checkId}", api.HandleExecuteTaskCheck).Methods(http.MethodPatch)
 
 	cors := cors.New(cors.Options{
-		AllowedOrigins:   []string{"*"},
+		AllowedOrigins:   getAllowedOrigins(),
 		AllowedMethods:   []string{http.MethodGet, http.MethodPatch},
 		AllowCredentials: true,
 	})
@@ -53,7 +54,7 @@ func main() {
 
 func getAllowedOrigins() []string {
 	devOrigins := []string{"*"}
-	prodOrigins := []string{"https://*.academy." + app.Domain + ":443"}
+	prodOrigins := []string{"https://*." + app.Domain + ":443"}
 	if app.AppMode == "DEV" {
 		return devOrigins
 	}
