@@ -38,8 +38,10 @@ func main() {
 	router.HandleFunc("/task/{id}", api.HandleExecuteTask).Methods(http.MethodPatch)
 	router.HandleFunc("/task/{taskId}/check/{checkId}", api.HandleExecuteTaskCheck).Methods(http.MethodPatch)
 
+	allowedOrigins := getAllowedOrigins()
+	log.Infof("Allowed Origins for CORS: %v", allowedOrigins)
 	cors := cors.New(cors.Options{
-		AllowedOrigins:   getAllowedOrigins(),
+		AllowedOrigins:   allowedOrigins,
 		AllowedMethods:   []string{http.MethodGet, http.MethodPatch},
 		AllowCredentials: true,
 	})
@@ -57,7 +59,7 @@ func getAllowedOrigins() []string {
 		return []string{"*"}
 	}
 	return []string{
-		app.GetCampusUrl(),
+		app.CampusUrl,
 	}
 }
 

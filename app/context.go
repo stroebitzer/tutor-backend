@@ -11,13 +11,13 @@ import (
 var AppMode string
 var TrainingDir string
 var TrainingFile string
-var CampusDomain string
+var CampusUrl string
 
 func init() {
 	AppMode = getAppMode()
 	TrainingDir = getTrainingDir()
 	TrainingFile = getTrainingFile()
-	CampusDomain = getEnvironmentVariable("CAMPUS_DOMAIN")
+	CampusUrl = getEnvironmentVariable("CAMPUS_URL")
 }
 
 func getEnvironmentVariable(key string) string {
@@ -52,8 +52,4 @@ func getAppMode() string {
 		return "PROD"
 	}
 	return appMode
-}
-
-func GetCampusUrl() string {
-	return "https://" + CampusDomain + ":443"
 }
