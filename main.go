@@ -39,7 +39,7 @@ func main() {
 	router.HandleFunc("/task/{taskId}/check/{checkId}", api.HandleExecuteTaskCheck).Methods(http.MethodPatch)
 
 	cors := cors.New(cors.Options{
-		AllowedOrigins:   []string{"*"},
+		AllowedOrigins:   getAllowedOrigins(),
 		AllowedMethods:   []string{http.MethodGet, http.MethodPatch},
 		AllowCredentials: true,
 	})
@@ -53,12 +53,12 @@ func main() {
 }
 
 func getAllowedOrigins() []string {
-	devOrigins := []string{"*"}
-	prodOrigins := []string{"https://*." + app.Domain + ":443"}
 	if app.AppMode == "DEV" {
-		return devOrigins
+		return []string{"*"}
 	}
-	return prodOrigins
+	return []string{
+		app.GetCampusUrl(),
+	}
 }
 
 func handleLiveness(w http.ResponseWriter, r *http.Request) {

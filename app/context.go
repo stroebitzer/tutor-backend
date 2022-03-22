@@ -6,16 +6,18 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
+// TODO make that all unchangeable
+
 var AppMode string
 var TrainingDir string
 var TrainingFile string
-var Domain string
+var CampusDomain string
 
 func init() {
 	AppMode = getAppMode()
 	TrainingDir = getTrainingDir()
 	TrainingFile = getTrainingFile()
-	Domain = getEnvironmentVariable("DOMAIN")
+	CampusDomain = getEnvironmentVariable("CAMPUS_DOMAIN")
 }
 
 func getEnvironmentVariable(key string) string {
@@ -50,4 +52,8 @@ func getAppMode() string {
 		return "PROD"
 	}
 	return appMode
+}
+
+func GetCampusUrl() string {
+	return "https://" + CampusDomain + ":443"
 }
