@@ -18,7 +18,7 @@ func main() {
 		TimestampFormat: "2006-01-02 15:04:05",
 	}
 	log.SetFormatter(formatter)
-	log.Infof("Running in %v mode", app.AppMode)
+	log.Infof("Running in %v mode", app.GetAppMode())
 
 	router := mux.NewRouter()
 
@@ -55,11 +55,11 @@ func main() {
 }
 
 func getAllowedOrigins() []string {
-	if app.AppMode == "DEV" {
+	if app.GetAppMode() == "DEV" {
 		return []string{"*"}
 	}
 	return []string{
-		app.CampusUrl,
+		app.GetCampusUrl(),
 	}
 }
 

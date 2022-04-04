@@ -15,7 +15,7 @@ func HandleGetTask(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	directory := params["id"]
 
-	task, err := io.ReadTask(app.TrainingDir, directory)
+	task, err := io.ReadTask(app.GetTrainingDir(), directory)
 	if err != nil {
 		log.Errorf("cannot read task on directory %v, error: %v", directory, err)
 		w.WriteHeader(http.StatusInternalServerError)
@@ -35,7 +35,7 @@ func HandleGetTaskMarkdown(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	directory := params["id"]
 
-	md, err := io.ReadTaskMarkdown(app.TrainingDir, directory)
+	md, err := io.ReadTaskMarkdown(app.GetTrainingDir(), directory)
 	if err != nil {
 		log.Errorf("cannot read task markdown on directory %v, error: %v", directory, err)
 		w.WriteHeader(http.StatusInternalServerError)
@@ -50,7 +50,7 @@ func HandleExecuteTask(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	directory := params["id"]
 
-	task, err := io.ReadTask(app.TrainingDir, directory)
+	task, err := io.ReadTask(app.GetTrainingDir(), directory)
 	if err != nil {
 		log.Errorf("cannot read task on directory %v, error: %v", directory, err)
 		w.WriteHeader(http.StatusInternalServerError)
@@ -75,7 +75,7 @@ func HandleExecuteTaskCheck(w http.ResponseWriter, r *http.Request) {
 	directory := params["taskId"]
 	checkId := params["checkId"]
 
-	task, err := io.ReadTask(app.TrainingDir, directory)
+	task, err := io.ReadTask(app.GetTrainingDir(), directory)
 	if err != nil {
 		log.Errorf("cannot read task on directory %v, error: %v", directory, err)
 		w.WriteHeader(http.StatusInternalServerError)

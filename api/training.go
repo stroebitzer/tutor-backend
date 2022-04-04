@@ -10,7 +10,7 @@ import (
 )
 
 func HandleGetTraining(w http.ResponseWriter, r *http.Request) {
-	training, err := io.ReadTraining(app.TrainingDir, app.TrainingFile)
+	training, err := io.ReadTraining(app.GetTrainingDir(), app.GetTrainingFile())
 	if err != nil {
 		log.Errorf("Cannot read training, error: %v", err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)

@@ -6,21 +6,35 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-// TODO make that all unchangeable
-
-var AppMode string
-var TrainingDir string
-var TrainingFile string
-var CampusUrl string
+var appMode string
+var trainingDir string
+var trainingFile string
+var campusUrl string
 
 func init() {
-	AppMode = getAppMode()
-	TrainingDir = getTrainingDir()
-	TrainingFile = getTrainingFile()
-	CampusUrl = getEnvironmentVariable("CAMPUS_URL")
+	appMode = readAppMode()
+	trainingDir = readTrainingDir()
+	trainingFile = readTrainingFile()
+	campusUrl = readEnvironmentVariable("CAMPUS_URL")
 }
 
-func getEnvironmentVariable(key string) string {
+func GetAppMode() string {
+	return appMode
+}
+
+func GetTrainingDir() string {
+	return trainingDir
+}
+
+func GetTrainingFile() string {
+	return trainingFile
+}
+
+func GetCampusUrl() string {
+	return campusUrl
+}
+
+func readEnvironmentVariable(key string) string {
 	value, exists := os.LookupEnv(key)
 	if !exists {
 		log.Fatalf("Environment Variable %v is not set", key)
@@ -30,7 +44,7 @@ func getEnvironmentVariable(key string) string {
 	}
 }
 
-func getTrainingDir() string {
+func readTrainingDir() string {
 	trainingDir, exists := os.LookupEnv("TRAINING_DIR")
 	if !exists {
 		return "/training"
@@ -38,7 +52,7 @@ func getTrainingDir() string {
 	return trainingDir
 }
 
-func getTrainingFile() string {
+func readTrainingFile() string {
 	trainingFile, exists := os.LookupEnv("TRAINING_FILE")
 	if !exists {
 		return ".training.yaml"
@@ -46,7 +60,7 @@ func getTrainingFile() string {
 	return trainingFile
 }
 
-func getAppMode() string {
+func readAppMode() string {
 	appMode, exists := os.LookupEnv("APP_MODE")
 	if !exists {
 		return "PROD"

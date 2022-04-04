@@ -14,7 +14,7 @@ func HandleGetTopic(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	id := params["id"]
 
-	training, err := io.ReadTraining(app.TrainingDir, app.TrainingFile)
+	training, err := io.ReadTraining(app.GetTrainingDir(), app.GetTrainingFile())
 	if err != nil {
 		log.Errorf("cannot read training, error: %v", err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
