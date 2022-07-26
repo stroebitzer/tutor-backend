@@ -46,10 +46,10 @@ func main() {
 		AllowCredentials: true,
 	})
 	handler := cors.Handler(router)
-	log.Info("Running campus-backend on port 8080")
+	log.Info("Running tutor-backend on port 8080")
 	err := http.ListenAndServe(":8080", handler)
 	if err != nil {
-		log.Fatalf("Cannot run campus-backend, error %v", err)
+		log.Fatalf("Cannot run tutor-backend, error %v", err)
 	}
 
 }

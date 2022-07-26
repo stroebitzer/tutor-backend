@@ -10,12 +10,14 @@ var appMode string
 var trainingDir string
 var trainingFile string
 var campusUrl string
+var token string
 
 func init() {
 	appMode = readAppMode()
 	trainingDir = readTrainingDir()
 	trainingFile = readTrainingFile()
 	campusUrl = readEnvironmentVariable("CAMPUS_URL")
+	token = readEnvironmentVariable("TOKEN")
 }
 
 func GetAppMode() string {
@@ -32,6 +34,10 @@ func GetTrainingFile() string {
 
 func GetCampusUrl() string {
 	return campusUrl
+}
+
+func GetToken() string {
+	return token
 }
 
 func readEnvironmentVariable(key string) string {
