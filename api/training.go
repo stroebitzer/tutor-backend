@@ -19,6 +19,8 @@ func HandleGetTraining(w http.ResponseWriter, r *http.Request) {
 	// 	return
 	// }
 
+	log.Infof(">>>>>>>>>>>>>>>>>>>Got Token: ", r.Header.Get("Token"))
+
 	training, err := io.ReadTraining(app.GetTrainingDir(), app.GetTrainingFile())
 	if err != nil {
 		log.Errorf("Cannot read training, error: %v", err)
