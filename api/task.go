@@ -13,13 +13,13 @@ import (
 
 func HandleGetTask(w http.ResponseWriter, r *http.Request) {
 
-	token := r.Header.Get("Token")
-	err := verifyToken(token)
-	if err != nil {
-		log.Errorf("invalid token %v, error: %v", token, err)
-		w.WriteHeader(http.StatusUnauthorized)
-		return
-	}
+	// token := r.Header.Get("Token")
+	// err := verifyToken(token)
+	// if err != nil {
+	// 	log.Errorf("invalid token %v, error: %v", token, err)
+	// 	w.WriteHeader(http.StatusUnauthorized)
+	// 	return
+	// }
 
 	params := mux.Vars(r)
 	directory := params["id"]
@@ -42,13 +42,13 @@ func HandleGetTask(w http.ResponseWriter, r *http.Request) {
 
 func HandleGetTaskMarkdown(w http.ResponseWriter, r *http.Request) {
 
-	token := r.Header.Get("Token")
-	err := verifyToken(token)
-	if err != nil {
-		log.Errorf("invalid token %v, error: %v", token, err)
-		w.WriteHeader(http.StatusUnauthorized)
-		return
-	}
+	// token := r.Header.Get("Token")
+	// err := verifyToken(token)
+	// if err != nil {
+	// 	log.Errorf("invalid token %v, error: %v", token, err)
+	// 	w.WriteHeader(http.StatusUnauthorized)
+	// 	return
+	// }
 
 	params := mux.Vars(r)
 	directory := params["id"]
@@ -65,13 +65,13 @@ func HandleGetTaskMarkdown(w http.ResponseWriter, r *http.Request) {
 
 func HandleExecuteTask(w http.ResponseWriter, r *http.Request) {
 
-	token := r.Header.Get("Token")
-	err := verifyToken(token)
-	if err != nil {
-		log.Errorf("invalid token %v, error: %v", token, err)
-		w.WriteHeader(http.StatusUnauthorized)
-		return
-	}
+	// token := r.Header.Get("Token")
+	// err := verifyToken(token)
+	// if err != nil {
+	// 	log.Errorf("invalid token %v, error: %v", token, err)
+	// 	w.WriteHeader(http.StatusUnauthorized)
+	// 	return
+	// }
 
 	params := mux.Vars(r)
 	directory := params["id"]
@@ -97,13 +97,13 @@ func HandleExecuteTask(w http.ResponseWriter, r *http.Request) {
 
 func HandleExecuteTaskCheck(w http.ResponseWriter, r *http.Request) {
 
-	token := r.Header.Get("Token")
-	err := verifyToken(token)
-	if err != nil {
-		log.Errorf("invalid token %v, error: %v", token, err)
-		w.WriteHeader(http.StatusUnauthorized)
-		return
-	}
+	// token := r.Header.Get("Token")
+	// err := verifyToken(token)
+	// if err != nil {
+	// 	log.Errorf("invalid token %v, error: %v", token, err)
+	// 	w.WriteHeader(http.StatusUnauthorized)
+	// 	return
+	// }
 
 	params := mux.Vars(r)
 	directory := params["taskId"]

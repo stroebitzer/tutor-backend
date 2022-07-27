@@ -12,13 +12,13 @@ import (
 
 func HandleGetTopic(w http.ResponseWriter, r *http.Request) {
 
-	token := r.Header.Get("Token")
-	err := verifyToken(token)
-	if err != nil {
-		log.Errorf("invalid token %v, error: %v", token, err)
-		w.WriteHeader(http.StatusUnauthorized)
-		return
-	}
+	// token := r.Header.Get("Token")
+	// err := verifyToken(token)
+	// if err != nil {
+	// 	log.Errorf("invalid token %v, error: %v", token, err)
+	// 	w.WriteHeader(http.StatusUnauthorized)
+	// 	return
+	// }
 
 	params := mux.Vars(r)
 	id := params["id"]

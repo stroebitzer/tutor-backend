@@ -11,13 +11,13 @@ import (
 
 func HandleGetTraining(w http.ResponseWriter, r *http.Request) {
 
-	token := r.Header.Get("Token")
-	err := verifyToken(token)
-	if err != nil {
-		log.Errorf("invalid token %v, error: %v", token, err)
-		w.WriteHeader(http.StatusUnauthorized)
-		return
-	}
+	// token := r.Header.Get("Token")
+	// err := verifyToken(token)
+	// if err != nil {
+	// 	log.Errorf("invalid token %v, error: %v", token, err)
+	// 	w.WriteHeader(http.StatusUnauthorized)
+	// 	return
+	// }
 
 	training, err := io.ReadTraining(app.GetTrainingDir(), app.GetTrainingFile())
 	if err != nil {
