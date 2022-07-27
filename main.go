@@ -55,12 +55,13 @@ func main() {
 }
 
 func getAllowedOrigins() []string {
-	if app.GetAppMode() == "DEV" {
-		return []string{"*"}
-	}
-	return []string{
-		app.GetCampusUrl(),
-	}
+	// TODO!!!
+	// if app.GetAppMode() == "DEV" {
+	return []string{"*"}
+	// }
+	// return []string{
+	// 	app.GetCampusUrl(),
+	// }
 }
 
 func handleLiveness(w http.ResponseWriter, r *http.Request) {
