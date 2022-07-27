@@ -19,7 +19,7 @@ func HandleGetTraining(w http.ResponseWriter, r *http.Request) {
 	// 	return
 	// }
 
-	log.Infof(">>>>>>>>>>>>>>>>>>>Got Token: ", r.Header.Get("Token"))
+	log.Infof(">>>>>>>>>>>>>>>>>>>Got Token: %s", r.Header.Get("Token"))
 
 	training, err := io.ReadTraining(app.GetTrainingDir(), app.GetTrainingFile())
 	if err != nil {
