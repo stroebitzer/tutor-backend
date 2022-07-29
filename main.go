@@ -43,6 +43,7 @@ func main() {
 	cors := cors.New(cors.Options{
 		AllowedOrigins:   allowedOrigins,
 		AllowedMethods:   []string{http.MethodGet, http.MethodPatch},
+		AllowedHeaders:   []string{"token"},
 		AllowCredentials: true,
 	})
 	handler := cors.Handler(router)
@@ -55,13 +56,12 @@ func main() {
 }
 
 func getAllowedOrigins() []string {
-	// TODO!!!
-	// if app.GetAppMode() == "DEV" {
-	return []string{"*"}
-	// }
-	// return []string{
-	// 	app.GetCampusUrl(),
-	// }
+	if app.GetAppMode() == "DEV" {
+		return []string{"*"}
+	}
+	return []string{
+		app.GetCampusUrl(),
+	}
 }
 
 func handleLiveness(w http.ResponseWriter, r *http.Request) {
