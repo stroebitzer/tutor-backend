@@ -6,6 +6,8 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+// TODO fix mess with test data files
+
 func TestReadTraining(t *testing.T) {
 
 	// given
@@ -96,4 +98,17 @@ func TestReadTaskMarkdownDoesFail(t *testing.T) {
 	assert.Error(t, err)
 	assert.Empty(t, md)
 
+}
+
+func TestReadTutorInit(t *testing.T) {
+
+	// given
+
+	// when
+	tutorInit, err := ReadTutorInit("testdata/tutor-init.yaml")
+
+	// then
+	assert.NoError(t, err)
+	assert.NotNil(t, tutorInit)
+	assert.Equal(t, 10, len(tutorInit.Phases))
 }

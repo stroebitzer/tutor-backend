@@ -38,6 +38,9 @@ func main() {
 	router.HandleFunc("/task/{id}", api.HandleExecuteTask).Methods(http.MethodPatch)
 	router.HandleFunc("/task/{taskId}/check/{checkId}", api.HandleExecuteTaskCheck).Methods(http.MethodPatch)
 
+	// init
+	router.HandleFunc("/init", api.HandleGetTutorInit).Methods(http.MethodGet)
+
 	allowedOrigins := getAllowedOrigins()
 	log.Infof("Allowed Origins for CORS: %v", allowedOrigins)
 	cors := cors.New(cors.Options{
@@ -45,6 +48,7 @@ func main() {
 		AllowedMethods:   []string{http.MethodGet, http.MethodPatch},
 		AllowedHeaders:   []string{"Token"},
 		AllowCredentials: true,
+		// TODO remove allow credentials??? -> no basic auth is used
 	})
 	handler := cors.Handler(router)
 	log.Info("Running tutor-backend on port 8080")

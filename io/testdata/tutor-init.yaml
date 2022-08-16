@@ -1,0 +1,11 @@
+phases:
+  - Patch .bashrc
+  - Setup Firewall
+  - Install Tutor Backend
+  - Install Tutor IDE
+  - Clone Gitrepo
+  - Install Nginx
+  - Install Certbot
+  - Install Docker
+  - Install Docker Compose
+  - Finished Successfully
