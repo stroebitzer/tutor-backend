@@ -105,7 +105,7 @@ func TestReadTutorInit(t *testing.T) {
 	// given
 
 	// when
-	tutorInit, err := ReadTutorInit("testdata/tutor-init.yaml")
+	tutorInit, err := ReadCloudInit("testdata/tutor-init.yaml")
 
 	// then
 	assert.NoError(t, err)

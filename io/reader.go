@@ -62,16 +62,16 @@ func ReadTaskMarkdown(trainingDir string, directory string) ([]byte, error) {
 	return markdownFile, nil
 }
 
-func ReadTutorInit(path string) (*model.TutorInit, error) {
+func ReadCloudInit(path string) (*model.CloudInit, error) {
 	log.Infof("Reading tutor init file from %v", path)
 	yamlFile, err := ioutil.ReadFile(path)
 	if err != nil {
 		return nil, fmt.Errorf("cannot read tutor init file from path %v, error: %v", path, err)
 	}
-	tutorInit := new(model.TutorInit)
-	err = yaml.Unmarshal(yamlFile, tutorInit)
+	cloudInit := new(model.CloudInit)
+	err = yaml.Unmarshal(yamlFile, cloudInit)
 	if err != nil {
 		return nil, fmt.Errorf("cannot unmarshal tutor init file from path %v, error: %v", path, err)
 	}
-	return tutorInit, nil
+	return cloudInit, nil
 }

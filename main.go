@@ -39,7 +39,7 @@ func main() {
 	router.HandleFunc("/task/{taskId}/check/{checkId}", api.HandleExecuteTaskCheck).Methods(http.MethodPatch)
 
 	// init
-	router.HandleFunc("/init", api.HandleGetTutorInit).Methods(http.MethodGet)
+	router.HandleFunc("/cloud_init_done", api.HandleIsCloudInitDone).Methods(http.MethodGet)
 
 	allowedOrigins := getAllowedOrigins()
 	log.Infof("Allowed Origins for CORS: %v", allowedOrigins)

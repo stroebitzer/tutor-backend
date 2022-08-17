@@ -1,5 +1,5 @@
 package model
 
-type TutorInit struct {
+type CloudInit struct {
 	Phases []string `yaml:"phases" json:"phases"`
 }
