@@ -39,6 +39,7 @@ func HandleIsCloudInitDone(w http.ResponseWriter, r *http.Request) {
 		if phase == "Finished Successfully" {
 			fmt.Fprint(w, strconv.FormatBool(true))
 			w.WriteHeader(http.StatusOK)
+			return
 		}
 	}
 
