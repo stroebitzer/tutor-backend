@@ -1,6 +1,7 @@
 package api
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"strconv"
@@ -34,15 +35,11 @@ func HandleIsCloudInitDone(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, strconv.FormatBool(false))
 		return
 	}
-
-	for _, phase := range tutorInit.Phases {
-		if phase == "Finished Successfully" {
-			fmt.Fprint(w, strconv.FormatBool(true))
-			w.WriteHeader(http.StatusOK)
-			return
-		}
+	json, err := json.Marshal(tutorInit)
+	if err != nil {
+		log.Errorf("Cannot marshal tutor init file, error: %v", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
-
-	fmt.Fprint(w, strconv.FormatBool(false))
-	w.WriteHeader(http.StatusOK)
+	w.Write(json)
 }
