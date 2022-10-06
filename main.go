@@ -46,10 +46,13 @@ func main() {
 	cors := cors.New(cors.Options{
 		AllowedOrigins:   allowedOrigins,
 		AllowedMethods:   []string{http.MethodGet, http.MethodPatch, http.MethodOptions},
-		AllowedHeaders:   []string{"Token", "Origin, X-Requested-With, Content-Type, Accept, Authorization"},
+		AllowedHeaders:   []string{"Token", "Origin", "Referer", "X-Requested-With", "Content-Type", "Accept", "Authorization"},
 		AllowCredentials: true,
 		// TODO remove allow credentials??? -> no basic auth is used
 	})
+
+	// TODO also fix this madness in campus = patch also needs add stuff because of pre-flight check
+
 	handler := cors.Handler(router)
 	log.Info("Running tutor-backend on port 8080")
 	err := http.ListenAndServe(":8080", handler)
