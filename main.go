@@ -35,8 +35,7 @@ func main() {
 	// task
 	router.HandleFunc("/task/{id}", api.HandleGetTask).Methods(http.MethodGet)
 	router.HandleFunc("/task/{id}/markdown", api.HandleGetTaskMarkdown).Methods(http.MethodGet)
-	router.HandleFunc("/task/{id}", api.HandleExecuteTask).Methods(http.MethodPatch)
-	router.HandleFunc("/task/{taskId}/check/{checkId}", api.HandleExecuteTaskCheck).Methods(http.MethodPatch)
+	router.HandleFunc("/task/{taskId}/check/{checkId}", api.HandleExecuteTaskCheck).Methods(http.MethodGet)
 
 	// init
 	router.HandleFunc("/cloud_init_done", api.HandleIsCloudInitDone).Methods(http.MethodGet)

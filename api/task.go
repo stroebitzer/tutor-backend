@@ -63,38 +63,6 @@ func HandleGetTaskMarkdown(w http.ResponseWriter, r *http.Request) {
 	w.Write(md)
 }
 
-func HandleExecuteTask(w http.ResponseWriter, r *http.Request) {
-
-	token := r.Header.Get("Token")
-	err := verifyToken(token)
-	if err != nil {
-		log.Errorf("invalid token %v, error: %v", token, err)
-		w.WriteHeader(http.StatusUnauthorized)
-		return
-	}
-
-	params := mux.Vars(r)
-	directory := params["id"]
-
-	task, err := io.ReadTask(app.GetTrainingDir(), directory)
-	if err != nil {
-		log.Errorf("cannot read task on directory %v, error: %v", directory, err)
-		w.WriteHeader(http.StatusInternalServerError)
-		return
-	}
-
-	executor.ExecuteTask(task)
-
-	json, err := json.Marshal(task)
-	if err != nil {
-		log.Errorf("cannot marshal task on directory %v, error: %v", directory, err)
-		w.WriteHeader(http.StatusInternalServerError)
-		return
-	}
-
-	w.Write(json)
-}
-
 func HandleExecuteTaskCheck(w http.ResponseWriter, r *http.Request) {
 
 	token := r.Header.Get("Token")
