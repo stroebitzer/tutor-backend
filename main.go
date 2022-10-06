@@ -45,7 +45,7 @@ func main() {
 	log.Infof("Allowed Origins for CORS: %v", allowedOrigins)
 	cors := cors.New(cors.Options{
 		AllowedOrigins:   allowedOrigins,
-		AllowedMethods:   []string{http.MethodGet, http.MethodPatch},
+		AllowedMethods:   []string{http.MethodGet, http.MethodPatch, http.MethodOptions},
 		AllowedHeaders:   []string{"Token"},
 		AllowCredentials: true,
 		// TODO remove allow credentials??? -> no basic auth is used
