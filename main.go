@@ -46,7 +46,7 @@ func main() {
 	cors := cors.New(cors.Options{
 		AllowedOrigins:   allowedOrigins,
 		AllowedMethods:   []string{http.MethodGet, http.MethodPatch, http.MethodOptions},
-		AllowedHeaders:   []string{"Token"},
+		AllowedHeaders:   []string{"Token", "Origin, X-Requested-With, Content-Type, Accept, Authorization"},
 		AllowCredentials: true,
 		// TODO remove allow credentials??? -> no basic auth is used
 	})
