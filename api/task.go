@@ -98,6 +98,10 @@ func HandleExecuteTask(w http.ResponseWriter, r *http.Request) {
 func HandleExecuteTaskCheck(w http.ResponseWriter, r *http.Request) {
 
 	token := r.Header.Get("Token")
+
+	log.Infof("TOKEN %s", token)
+	log.Infof("HEADERS %+v", r.Header)
+
 	err := verifyToken(token)
 	if err != nil {
 		log.Errorf("invalid token %v, error: %v", token, err)
