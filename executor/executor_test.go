@@ -11,7 +11,7 @@ import (
 func TestExecuteTask(t *testing.T) {
 
 	// given
-	task := model.NewTask("test", "echo", "test", "EQUAL", "test\n")
+	task := model.NewTask("test", "echo", "test", "EQUALS", "test\n")
 
 	// when
 	ExecuteTask(task)
@@ -24,7 +24,7 @@ func TestExecuteTask(t *testing.T) {
 func TestExecuteCheck(t *testing.T) {
 
 	// given
-	check := model.NewCheck("test", "Test", "echo", "test", "EQUAL", "test\n")
+	check := model.NewCheck("test", "Test", "echo", "test", "EQUALS", "test\n")
 
 	// when
 	ExecuteCheck(check)
@@ -33,3 +33,5 @@ func TestExecuteCheck(t *testing.T) {
 	assert.Equal(t, "SUCCESS", check.LastResult)
 
 }
+
+// TODO CONTAINS tests

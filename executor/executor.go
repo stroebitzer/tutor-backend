@@ -42,13 +42,20 @@ func compare(result string, operator string, expectation string) (string, error)
 
 	log.Infof("Comparing result %v, operator %v, expectation %v", result, operator, expectation)
 
-	if operator == "EQUAL" {
+	if operator == "EQUALS" {
 		if result == expectation {
 			log.Infof("Executor SUCCESS")
 			return "SUCCESS", nil
 		}
 		log.Infof("Executor FAILURE")
-		return "FAILURE", fmt.Errorf("result '%v' does not match expectation '%v'", result, expectation)
+		return "FAILURE", fmt.Errorf("result '%v' does not match '%v'", result, expectation)
+	} else if operator == "CONTAINS" {
+		if strings.Contains(result, expectation) {
+			log.Infof("Executor SUCCESS")
+			return "SUCCESS", nil
+		}
+		log.Infof("Executor FAILURE")
+		return "FAILURE", fmt.Errorf("result '%v' does not contain '%v'", result, expectation)
 	}
 
 	log.Errorf("Operator %v not implemented yet", operator)
