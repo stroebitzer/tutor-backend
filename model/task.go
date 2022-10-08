@@ -6,10 +6,11 @@ type Task struct {
 	Checks    []*Check `yaml:"checks" json:"checks"`
 }
 
-func NewTask(name string, command string, args string, operator string, expectation string) *Task {
+func NewTask(name, command, args, operator, expectation string) *Task {
 	task := new(Task)
 	task.Name = name
-	check := NewCheck("test", "Test", command, args, operator, expectation)
+	// TODO why is test stuff in here?
+	check := NewCheck("test", "Test", command, args, operator, expectation, "testSuccessText", "testFailureText")
 	task.Checks = append(task.Checks, check)
 	return task
 }

@@ -21,9 +21,9 @@ func ExecuteCheck(check *model.Check) {
 	execResult := execute(check.Command, check.Args)
 	execResult = strings.Trim(execResult, "'")
 	result, err := compare(execResult, check.Operator, check.Expectation)
-	check.LastResult = result
+	check.Result = result
 	if err != nil {
-		check.LastResultContext = err.Error()
+		log.Infof("Error on comparing result of execution, check: %+v, error: %s ", check, err)
 	}
 }
 
@@ -48,14 +48,14 @@ func compare(result string, operator string, expectation string) (string, error)
 			return "SUCCESS", nil
 		}
 		log.Infof("Executor FAILURE")
-		return "FAILURE", fmt.Errorf("result '%v' does not match '%v'", result, expectation)
+		return "FAILURE", fmt.Errorf("execution result '%v' does not match '%v'", result, expectation)
 	} else if operator == "CONTAINS" {
 		if strings.Contains(result, expectation) {
 			log.Infof("Executor SUCCESS")
 			return "SUCCESS", nil
 		}
 		log.Infof("Executor FAILURE")
-		return "FAILURE", fmt.Errorf("result '%v' does not contain '%v'", result, expectation)
+		return "FAILURE", fmt.Errorf("execution result '%v' does not contain '%v'", result, expectation)
 	}
 
 	log.Errorf("Operator %v not implemented yet", operator)

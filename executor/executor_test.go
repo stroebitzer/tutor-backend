@@ -17,20 +17,20 @@ func TestExecuteTask(t *testing.T) {
 	ExecuteTask(task)
 
 	// then
-	assert.Equal(t, "SUCCESS", task.Checks[0].LastResult)
+	assert.Equal(t, "SUCCESS", task.Checks[0].Result)
 
 }
 
 func TestExecuteCheck(t *testing.T) {
 
 	// given
-	check := model.NewCheck("test", "Test", "echo", "test", "EQUALS", "test\n")
+	check := model.NewCheck("test", "Test", "echo", "test", "EQUALS", "test\n", "testSuccessText", "testFailureText")
 
 	// when
 	ExecuteCheck(check)
 
 	// then
-	assert.Equal(t, "SUCCESS", check.LastResult)
+	assert.Equal(t, "SUCCESS", check.Result)
 
 }
 
