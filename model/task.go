@@ -1,9 +1,11 @@
 package model
 
+// TODO maybe two different DTOs checks and question
 type Task struct {
-	Directory string   `yaml:"directory" json:"directory"`
-	Name      string   `yaml:"name" json:"name"`
-	Checks    []*Check `yaml:"checks" json:"checks"`
+	Directory string    `yaml:"directory" json:"directory"`
+	Name      string    `yaml:"name" json:"name"`
+	Checks    []*Check  `yaml:"checks" json:"checks"`
+	Question  *Question `yaml:"question" json:"question"`
 }
 
 func NewTask(name, command, args, operator, expectation string) *Task {
