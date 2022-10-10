@@ -18,24 +18,34 @@ func ExecuteTask(task *model.Task) {
 
 func ExecuteCheck(check *model.Check) {
 	log.Infof("Execute check %v", check)
-	execResult := execute(check.Command, check.Args)
+
+	// TODO error handling => giving error stack to frontend???
+
+	execResult, err := Execute(check.Command, check.Args)
+	if err != nil {
+		log.Infof("Error on executing check: %+v, error: %s ", check, err)
+	}
+
 	execResult = strings.Trim(execResult, "'")
+
 	result, err := compare(execResult, check.Operator, check.Expectation)
-	check.Result = result
 	if err != nil {
 		log.Infof("Error on comparing result of execution, check: %+v, error: %s ", check, err)
 	}
+	check.Result = result
 }
 
-func execute(command string, args string) string {
+func Execute(command string, args string) (string, error) {
 	splittedArgs := strings.Split(args, " ")
 	result, err := exec.Command(command, splittedArgs...).Output()
+
 	if err != nil {
 		log.Infof("Error on executing command %v with args %v, %v", command, args, err)
-	} else {
-		log.Infof("Successful execution of command %v with args %v", command, args)
+		return "", err
 	}
-	return string(result)
+
+	log.Infof("Successful execution of command %v with args %v", command, args)
+	return string(result), nil
 }
 
 func compare(result string, operator string, expectation string) (string, error) {

@@ -34,4 +34,31 @@ func TestExecuteCheck(t *testing.T) {
 
 }
 
-// TODO CONTAINS tests
+// TODO CONTAINS operator tests
+
+func TestExecute(t *testing.T) {
+
+	// given
+
+	// when
+	result, err := Execute("curl", "-I https://www.google.at")
+
+	// then
+	assert.NoError(t, err)
+	assert.NotEmpty(t, result)
+	assert.Contains(t, result, "HTTP/2 200")
+
+}
+
+func TestExecuteFail(t *testing.T) {
+
+	// given
+
+	// when
+	result, err := Execute("cat", "/not/existing/file")
+
+	// then
+	assert.Error(t, err)
+	assert.Empty(t, result)
+
+}

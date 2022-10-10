@@ -2,6 +2,8 @@ package api
 
 import (
 	"encoding/json"
+	"fmt"
+	"io/ioutil"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -38,6 +40,41 @@ func HandleGetTask(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.Write(json)
+}
+
+func HandleSetupTask(w http.ResponseWriter, r *http.Request) {
+
+	token := r.Header.Get("Token")
+	err := verifyToken(token)
+	if err != nil {
+		log.Errorf("invalid token %v, error: %v", token, err)
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+
+	params := mux.Vars(r)
+	directory := params["id"]
+
+	// TODO move to business package and test it
+
+	absPath := app.GetTrainingDir() + "/" + directory + "/.setup/setup.sh"
+	_, err = ioutil.ReadFile(absPath)
+	if err != nil {
+		log.Errorf("Setup File with path %s does not exist, error: %v", absPath, err)
+		w.WriteHeader(http.StatusOK)
+		return
+	}
+
+	// TODO what to do with the result of the execution?
+	_, err = executor.Execute("/bin/bash", absPath)
+	if err != nil {
+		log.Errorf("Error on executing setup file on path %s, error: %v", absPath, err)
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Fprint(w, err)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
 }
 
 func HandleGetTaskMarkdown(w http.ResponseWriter, r *http.Request) {
