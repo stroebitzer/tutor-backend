@@ -35,6 +35,7 @@ func main() {
 	// task
 	router.HandleFunc("/task/{id}", api.HandleGetTask).Methods(http.MethodGet)
 	router.HandleFunc("/task/{id}/setup", api.HandleSetupTask).Methods(http.MethodGet)
+	router.HandleFunc("/task/{id}/teardown", api.HandleTeardownTask).Methods(http.MethodGet)
 	router.HandleFunc("/task/{id}/markdown", api.HandleGetTaskMarkdown).Methods(http.MethodGet)
 	router.HandleFunc("/task/{taskId}/check/{checkId}", api.HandleExecuteTaskCheck).Methods(http.MethodGet)
 
